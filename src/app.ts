@@ -5,7 +5,7 @@ class Department {
 	// declaration of a readonly property
 	constructor(public readonly id: string, public name: string) {}
 
-	describe(this: Department,) {
+	describe(this: Department) {
 		// type checking for any object that calls this function definition
 		console.log(`Department: ${this.name} : ${this.id}`);
 	}
@@ -19,6 +19,14 @@ class Department {
 		console.log(this.employees);
 	}
 }
+
+// inheritance with default constructor
+class ITDepartment extends Department {}
+
+const it = new ITDepartment('ACX1', 'IT');
+it.addEmployee('Simba');
+it.addEmployee('Chichie');
+it.describe();
 
 const accounting = new Department('ABX1', 'accounting');
 accounting.addEmployee('Simba');

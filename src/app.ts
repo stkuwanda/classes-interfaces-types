@@ -20,13 +20,45 @@ class Department {
 	}
 }
 
-// inheritance with default constructor
-class ITDepartment extends Department {}
+// inheritance with custom constructor
+class ITDepartment extends Department {
+	constructor(id: string, public admins: string[]) {
+		// always call super() to initialize inherited properties.
+		// super() call must be first and always precede any use of `this` keyword
+		super(id, 'IT'); 
+	}
+}
 
-const it = new ITDepartment('ACX1', 'IT');
-it.addEmployee('Simba');
-it.addEmployee('Chichie');
+class AccountingDepartment extends Department {
+	constructor(id:string, private reports: string[]) {
+		super(id, 'Accounting');
+	}
+
+	addReport(report: string) {
+		this.reports.push(report);
+	}
+
+	printReports() {
+		console.log(this.reports);
+	}
+}
+
+const it = new ITDepartment('ACX1', ['Simba']);
+it.addEmployee('Kuku');
+it.addEmployee('Christian');
 it.describe();
+it.printEmployeeInfor();
+console.log(it);
+
+const acc = new AccountingDepartment('ABX2', ['quaterly', 'annual']);
+acc.addEmployee('Kuku');
+acc.addEmployee('Christian');
+acc.addReport('monthly');
+acc.addReport('daily');
+acc.printReports();
+acc.describe();
+acc.printEmployeeInfor();
+console.log(acc);
 
 const accounting = new Department('ABX1', 'accounting');
 accounting.addEmployee('Simba');

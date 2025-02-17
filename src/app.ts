@@ -2,7 +2,8 @@ class Department {
 	private employees: string[] = [];
 
 	// shorthand declaration of class properties as constructor parameters
-	constructor(public id: string, public name: string) {}
+	// declaration of a readonly property
+	constructor(public readonly id: string, public name: string) {}
 
 	describe(this: Department,) {
 		// type checking for any object that calls this function definition

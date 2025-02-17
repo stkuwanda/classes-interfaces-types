@@ -1,5 +1,6 @@
 class Department {
-	private employees: string[] = [];
+	// protected members are visible in all children classes
+	protected employees: string[] = [];
 
 	// shorthand declaration of class properties as constructor parameters
 	// declaration of a readonly property
@@ -27,6 +28,16 @@ class ITDepartment extends Department {
 		// super() call must be first and always precede any use of `this` keyword
 		super(id, 'IT'); 
 	}
+
+	// override parent implementation
+	addEmployee(employee: string): void {
+		if(employee === 'Max') {
+			return;
+		}
+
+		// use `super` to call the parent method to run the default implementation
+		super.addEmployee(employee);
+	}
 }
 
 class AccountingDepartment extends Department {
@@ -46,6 +57,8 @@ class AccountingDepartment extends Department {
 const it = new ITDepartment('ACX1', ['Simba']);
 it.addEmployee('Kuku');
 it.addEmployee('Christian');
+it.addEmployee('Max');
+it.addEmployee('Nathan');
 it.describe();
 it.printEmployeeInfor();
 console.log(it);

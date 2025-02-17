@@ -1,11 +1,17 @@
 abstract class Division {
+	protected employees: string[] = [];
+	
+	constructor(public id: string, public name: string) {}
+
 	abstract describe(this: Department): void;
 
 	abstract addEmployee(employee: string): void;
 
-	abstract printEmployeeInfor(): void;
+	printEmployeeInfor() {
+		console.log(this.employees.length);
+		console.log(this.employees);
+	}
 }
-
 
 class Department extends Division {
 	static createEmployee(name: string) {
@@ -20,21 +26,18 @@ class Department extends Division {
 	// shorthand declaration of class properties as constructor parameters
 	// declaration of a readonly property
 	constructor(public readonly id: string, public name: string) {
-		super();
+		super(id, name);
 	}
 
 	describe(this: Department) {
 		// type checking for any object that calls this function definition
-		console.log(`Department: ${this.name} : ${this.id}, year : ${Department.year}`);
+		console.log(
+			`Department: ${this.name} : ${this.id}, year : ${Department.year}`
+		);
 	}
 
 	addEmployee(employee: string) {
 		this.employees.push(employee);
-	}
-
-	printEmployeeInfor() {
-		console.log(this.employees.length);
-		console.log(this.employees);
 	}
 }
 

@@ -5,12 +5,12 @@ class Department {
 		this.name = n;
 	}
 
-	describe() {
+	describe(this: Department) { // type checking for any object that calls this function definition
 		console.log(`Department: ${this.name}`);
 	}
 }
 
 const accounting = new Department('accounting');
-const accountingCopy = { describe: accounting.describe };
-console.log(accounting.describe()); // prints => Department: accounting
-console.log(accountingCopy.describe()); // prints => undefined
+const accountingCopy = { name: 'accounting', describe: accounting.describe };
+accounting.describe(); // prints => Department: accounting
+accountingCopy.describe(); // prints => Department: undefined

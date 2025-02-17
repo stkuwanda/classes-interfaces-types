@@ -1,6 +1,8 @@
 // an interface defines the structure of an object but is non-instatiable.
 // use it as a type
-interface Person {
+// a type alias can be used to achieve something similar, like using it as
+// a type.
+type Person = {
   name: string;
   age: number;
 

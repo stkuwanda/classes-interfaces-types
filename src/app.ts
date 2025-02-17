@@ -59,9 +59,21 @@ class ITDepartment extends Department {
 }
 
 class AccountingDepartment extends Department {
+	private static instance: AccountingDepartment;
+
+	// note that `this` inside a static context refers to the static member
+	static getInstance() {
+		if(this.instance){
+			return this.instance;
+		}
+
+		this.instance = new AccountingDepartment('ABX2', ['annually']);
+		return this.instance;
+	}
+
 	private lastReport: string;
 
-	constructor(id: string, private reports: string[]) {
+	private constructor(id: string, private reports: string[]) {
 		super(id, 'Accounting');
 		this.lastReport = this.reports[this.reports.length - 1] ?? '';
 	}
@@ -113,7 +125,7 @@ it.describe();
 it.printEmployeeInfor();
 console.log(it);
 
-const acc = new AccountingDepartment('ABX2', ['annually']);
+const acc = AccountingDepartment.getInstance();
 acc.addEmployee('Kuku');
 acc.addEmployee('Christian');
 console.log(acc.mostRecentReport);

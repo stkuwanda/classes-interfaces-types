@@ -1,4 +1,10 @@
 class Department {
+	static createEmployee(name: string) {
+		return { name };
+	}
+
+	static year: string = '2025';
+
 	// protected members are visible in all children classes
 	protected employees: string[] = [];
 
@@ -8,7 +14,7 @@ class Department {
 
 	describe(this: Department) {
 		// type checking for any object that calls this function definition
-		console.log(`Department: ${this.name} : ${this.id}`);
+		console.log(`Department: ${this.name} : ${this.id}, year : ${Department.year}`);
 	}
 
 	addEmployee(employee: string) {
@@ -26,12 +32,12 @@ class ITDepartment extends Department {
 	constructor(id: string, public admins: string[]) {
 		// always call super() to initialize inherited properties.
 		// super() call must be first and always precede any use of `this` keyword
-		super(id, 'IT'); 
+		super(id, 'IT');
 	}
 
 	// override parent implementation
 	addEmployee(employee: string): void {
-		if(employee === 'Max') {
+		if (employee === 'Max') {
 			return;
 		}
 
@@ -43,16 +49,18 @@ class ITDepartment extends Department {
 class AccountingDepartment extends Department {
 	private lastReport: string;
 
-	constructor(id:string, private reports: string[]) {
+	constructor(id: string, private reports: string[]) {
 		super(id, 'Accounting');
 		this.lastReport = this.reports[this.reports.length - 1] ?? '';
 	}
 
 	// getter
 	get mostRecentReport() {
-		const result = this.lastReport ? this.lastReport :  new Error('No report found!');
+		const result = this.lastReport
+			? this.lastReport
+			: new Error('No report found!');
 
-		if(typeof result === 'string') {
+		if (typeof result === 'string') {
 			return result;
 		}
 
@@ -61,9 +69,9 @@ class AccountingDepartment extends Department {
 
 	// setter
 	set mostRecentReport(value) {
-		const result = value ||  new Error('Invalid input!');
+		const result = value || new Error('Invalid input!');
 
-		if(typeof result === 'string') {
+		if (typeof result === 'string') {
 			this.addReport(result);
 			return;
 		}
@@ -80,6 +88,9 @@ class AccountingDepartment extends Department {
 		console.log(this.reports);
 	}
 }
+
+const employee1 = Department.createEmployee('Terry');
+console.log(employee1, Department.year);
 
 const it = new ITDepartment('ACX1', ['Simba']);
 it.addEmployee('Kuku');

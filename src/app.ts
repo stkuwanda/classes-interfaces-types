@@ -1,6 +1,7 @@
 abstract class Division {
+	// protected members are visible in all children classes
 	protected employees: string[] = [];
-	
+
 	constructor(public id: string, public name: string) {}
 
 	abstract describe(this: Department): void;
@@ -19,9 +20,6 @@ class Department extends Division {
 	}
 
 	static year: string = '2025';
-
-	// protected members are visible in all children classes
-	protected employees: string[] = [];
 
 	// shorthand declaration of class properties as constructor parameters
 	// declaration of a readonly property

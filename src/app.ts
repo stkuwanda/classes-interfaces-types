@@ -1,4 +1,13 @@
-class Department {
+abstract class Division {
+	abstract describe(this: Department): void;
+
+	abstract addEmployee(employee: string): void;
+
+	abstract printEmployeeInfor(): void;
+}
+
+
+class Department extends Division {
 	static createEmployee(name: string) {
 		return { name };
 	}
@@ -10,7 +19,9 @@ class Department {
 
 	// shorthand declaration of class properties as constructor parameters
 	// declaration of a readonly property
-	constructor(public readonly id: string, public name: string) {}
+	constructor(public readonly id: string, public name: string) {
+		super();
+	}
 
 	describe(this: Department) {
 		// type checking for any object that calls this function definition

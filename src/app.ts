@@ -3,7 +3,7 @@
 // a type alias can be used to achieve something similar, like using it as
 // a type.
 interface Greetable {
-  greet(greeting: string): void; // members are implicitly public
+	greet(greeting: string): void; // members are implicitly public
 }
 
 // type Greetable = {
@@ -11,8 +11,8 @@ interface Greetable {
 // };
 
 interface Identifiable {
-  name: string;
-  age: number;
+	name: string;
+	age: number;
 }
 
 // interfaces can `extend` one or more other interfaces
@@ -22,11 +22,11 @@ interface Shakable extends Identifiable {
 
 // implementing multiple interfaces
 class Person implements Greetable, Shakable {
-  readonly name: string;
+	readonly name: string;
 
 	constructor(n: string, public age: number) {
-    this.name = n;
-  }
+		this.name = n;
+	}
 
 	greet(greeting: string): void {
 		console.log(`${greeting} ${this.name}.`);
@@ -56,3 +56,22 @@ shakableUser.shakeHands();
 
 greetableUser = user2; // casting using angle brackets
 greetableUser.greet('This greeting comes from a Software Engineer named');
+
+// function types with type aliases and interfaces
+
+// simple function type declaration
+const addNum: (a: number, b: number) => number = (a: number, b: number) => a + b;
+
+// type alias declaration
+type AddNumFunc = (a: number, b: number) => number;
+
+const addNumbers: AddNumFunc = function (a: number, b: number) {
+	return a + b;
+};
+
+// interface declaration
+interface AddNumberFunc {
+	(a: number, b: number): number;
+}
+
+const addNums: AddNumberFunc = (a: number, b: number) => a + b;

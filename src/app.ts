@@ -1,34 +1,17 @@
-// type casting
-// const input = document.getElementById('user-input');
+type Combinable = string | number;
 
-// if(input) {
-//   (input as HTMLInputElement).value = 'Interesting text.';
-// }
-
-// const input = document.getElementById('user-input')! as HTMLInputElement;
-// input.value = 'Hello World!';
-
-const input = <HTMLInputElement>document.getElementById('user-input')!;
-input.value = 'Hello World!';
-
-// index properties:
-// these define a pattern for how properties are to be set on an object.
-// the object on such a type is flexible and can have from zero to any number
-// of properties which fit the defined pattern.
-// allowed pattern of types: string, number, symbol
-interface FlexibleType {
-	[key: string]: string; // pattern
+function add(a: number, b: number): number;
+function add(a: string, b: string): string;
+function add(a: number, b: string): string;
+function add(a: string, b: number): string;
+function add(a: Combinable, b: Combinable): Combinable {
+	// type guard using primitive types
+	if (typeof a === 'string' || typeof b === 'string') {
+		return a.toString() + b.toString();
+	}
+	return a + b;
 }
 
-interface FlexibleContainer {
-	[prop: number]: number;
-}
-
-const container: FlexibleType = {
-	name: 'Simbarashe',
-	occupation: 'Software Engineer',
-};
-const container2: FlexibleContainer = {};
-const container3: FlexibleContainer = { 1: 1, 2: 304, 8: 24 };
-
-console.log(container, container2, container3)
+const result = add(1, 1);
+const result2 = add('cat', ' dog');
+const result3 = add(1, ' dog');

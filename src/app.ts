@@ -10,7 +10,13 @@ interface Greetable {
 // 	greet(greeting: string): void;
 // };
 
-interface Shakable {
+interface Identifiable {
+  name: string;
+  age: number;
+}
+
+// interfaces can `extend` one or more other interfaces
+interface Shakable extends Identifiable {
 	shakeHands(): void;
 }
 

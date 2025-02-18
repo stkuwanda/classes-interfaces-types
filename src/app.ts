@@ -1,17 +1,8 @@
-type Combinable = string | number;
+// how to cast a `number` type into a string.
+// this is not conventional.
+let item = <unknown>1; // cast the number to type `unknown`
+const item2 = <string> item; //  cast the unknown type into a string
+const num = 323;
 
-function add(a: number, b: number): number;
-function add(a: string, b: string): string;
-function add(a: number, b: string): string;
-function add(a: string, b: number): string;
-function add(a: Combinable, b: Combinable): Combinable {
-	// type guard using primitive types
-	if (typeof a === 'string' || typeof b === 'string') {
-		return a.toString() + b.toString();
-	}
-	return a + b;
-}
-
-const result = add(1, 1);
-const result2 = add('cat', ' dog');
-const result3 = add(1, ' dog');
+// double casting done in a single line
+const item3 = <string><unknown>num;

@@ -60,7 +60,8 @@ greetableUser.greet('This greeting comes from a Software Engineer named');
 // function types with type aliases and interfaces
 
 // simple function type declaration
-const addNum: (a: number, b: number) => number = (a: number, b: number) => a + b;
+const addNum: (a: number, b: number) => number = (a: number, b: number) =>
+	a + b;
 
 // type alias declaration
 type AddNumFunc = (a: number, b: number) => number;
@@ -75,3 +76,7 @@ interface AddNumberFunc {
 }
 
 const addNums: AddNumberFunc = (a: number, b: number) => a + b;
+
+function sumNumbersApp(a: number, b: number): number {
+	return a + b;
+}

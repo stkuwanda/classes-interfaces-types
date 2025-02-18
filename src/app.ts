@@ -3,36 +3,43 @@
 // a type alias can be used to achieve something similar, like using it as
 // a type.
 interface Greetable {
-  greet(greeting: string): void;
+  greet(greeting: string): void; // members are implicitly public
 }
 
+// type Greetable = {
+// 	greet(greeting: string): void;
+// };
+
 interface Shakable {
-  shakeHands(): void;
+	shakeHands(): void;
 }
 
 // implementing multiple interfaces
-class Person implements Greetable, Shakable{
-  constructor(public name:string, public age: number) {}
+class Person implements Greetable, Shakable {
+  readonly name: string;
 
-  greet(greeting: string): void {
-    console.log(`${greeting} ${this.name}.`);
+	constructor(n: string, public age: number) {
+    this.name = n;
   }
 
-  shakeHands(): void {
-    console.log(`${this.name} is shaking hands with someone.`)
-  }
-  
+	greet(greeting: string): void {
+		console.log(`${greeting} ${this.name}.`);
+	}
+
+	shakeHands(): void {
+		console.log(`${this.name} is shaking hands with someone.`);
+	}
 }
 
 const user = new Person('Simba', 34);
 user.greet('Hi, my name is');
 user.shakeHands();
 
-// explicit type casting 
+// explicit type casting
 let shakableUser: Shakable = user as Shakable; // casting use `as` keyword
 shakableUser.shakeHands();
 
-let greetableUser: Greetable =  <Greetable> user; // casting using angle brackets
+let greetableUser: Greetable = <Greetable>user; // casting using angle brackets
 greetableUser.greet('This greeting comes from a Software Engineer named');
 
 const user2 = new Person('Chichie', 28);
@@ -43,4 +50,3 @@ shakableUser.shakeHands();
 
 greetableUser = user2; // casting using angle brackets
 greetableUser.greet('This greeting comes from a Software Engineer named');
-

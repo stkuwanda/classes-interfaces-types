@@ -4,6 +4,7 @@
 // a type.
 interface Greetable {
 	greet(greeting: string): void; // members are implicitly public
+  sendText?(text: string): void; // optional method
 }
 
 // type Greetable = {

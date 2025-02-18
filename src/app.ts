@@ -13,6 +13,7 @@ interface Greetable {
 interface Identifiable {
 	name: string;
 	age: number;
+	occupation?: string; // optional parameter
 }
 
 // interfaces can `extend` one or more other interfaces
@@ -24,7 +25,7 @@ interface Shakable extends Identifiable {
 class Person implements Greetable, Shakable {
 	readonly name: string;
 
-	constructor(n: string, public age: number) {
+	constructor(n: string, public age: number, public occupation?: string) {
 		this.name = n;
 	}
 
@@ -33,11 +34,13 @@ class Person implements Greetable, Shakable {
 	}
 
 	shakeHands(): void {
-		console.log(`${this.name} is shaking hands with someone.`);
+		console.log(
+			`${this.name} is shaking hands with the ${this.occupation ?? 'someone'}.`
+		);
 	}
 }
 
-const user = new Person('Simba', 34);
+const user = new Person('Simba', 34, 'Doctor');
 user.greet('Hi, my name is');
 user.shakeHands();
 

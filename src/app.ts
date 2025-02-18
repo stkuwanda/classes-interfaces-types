@@ -1,52 +1,82 @@
-// type intersection
+type Admin = {
+  name: string;
+  privileges: string[];
+};
 
-type Combinable = string | number | symbol;
-type Selectable = boolean | number | symbol;
+type Employee = {
+  name: string;
+  startDate: Date;
+};
 
-// type intersection with aliased union types.
-// the & operator will return the common type or
-// a union of types if there's more than one common type
-// into the alias.
-type Universal = Combinable & Selectable; // Universal aliases the returned union type (number | symbol)
+// interface ElevatedEmployee extends Employee, Admin {}
 
-const item: Universal = 6;
-const item2: Universal = Symbol('test');
-console.log(item, item2);
-
-// type intersection with aliased custom object types
-// the & operator will return a combined custom object type
-// into the declared alias
-type Admin = { privileges: string[] };
-type Employee = { name: string; startDate: Date };
 type ElevatedEmployee = Admin & Employee;
 
-const specialUser: ElevatedEmployee = {
-	name: 'Simba',
-	startDate: new Date(),
-	privileges: ['super-user'],
+const e1: ElevatedEmployee = {
+  name: 'Max',
+  privileges: ['create-server'],
+  startDate: new Date()
 };
 
-console.log(specialUser);
+type Combinable = string | number;
+type Numeric = number | boolean;
 
+type Universal = Combinable & Numeric;
 
-// type intersection with interfaces.
-// the & operator will return a combined custom object type
-// into the declared alias, same as type intersection with
-// aliased custom object times.
-interface Authenticated {
-	privileges: string[];
+function add(a: Combinable, b: Combinable) {
+  // type guard using primitive types
+  if (typeof a === 'string' || typeof b === 'string') {
+    return a.toString() + b.toString();
+  }
+  return a + b;
 }
 
-interface Personnel {
-	name: string;
-	startDate: Date;
+type UnknownEmployee = Employee | Admin;
+
+function printEmployeeInformation(emp: UnknownEmployee) {
+  console.log('Name: ' + emp.name);
+
+  // type guards using `in` operation which checks for property availability in an object
+  if ('privileges' in emp) {
+    console.log('Privileges: ' + emp.privileges);
+  }
+
+  if ('startDate' in emp) {
+    console.log('Start Date: ' + emp.startDate);
+  }
 }
 
-type Forewoman = Authenticated & Personnel;
-const manager: Forewoman = {
-	name: 'Chichie',
-	startDate: new Date(),
-	privileges: [''],
-};
+printEmployeeInformation({ name: 'Manu', startDate: new Date() });
 
-console.log(manager);
+class Car {
+  drive() {
+    console.log('Driving...');
+  }
+}
+
+class Truck {
+  drive() {
+    console.log('Driving a truck...');
+  }
+
+  loadCargo(amount: number) {
+    console.log('Loading cargo ...' + amount);
+  }
+}
+
+type Vehicle = Car | Truck;
+
+const v1 = new Car();
+const v2 = new Truck();
+
+function useVehicle(vehicle: Vehicle) {
+  vehicle.drive();
+
+  // type guard using the `instanceof` operator
+  if (vehicle instanceof Truck) {
+    vehicle.loadCargo(1000);
+  }
+}
+
+useVehicle(v1);
+useVehicle(v2);

@@ -2,6 +2,8 @@
 // note: the returned after calling the function is the actual
 // decorator function.
 function Logger(message: string) {
+	console.log('logger factory...');
+	
 	return function (constructor: Function) {
 		console.log(message);
 		console.log(constructor);
@@ -20,7 +22,10 @@ function getStringBetweenBraces(str: string) {
 
 // complex decorator factory used to update the DOM
 function WithTemplate(html: string, elementId: string) {
+	console.log('template factory...');
+
 	return function (constructor: any) {
+		console.log('render template...');
 		const p = new constructor();
     const template = getStringBetweenBraces(html)!;
 
@@ -33,6 +38,7 @@ function WithTemplate(html: string, elementId: string) {
 	};
 }
 
+@Logger('LOGGING - PERSON')
 @WithTemplate('<div>{name}</div>', 'app')
 class Person {
 	name = 'Simba';

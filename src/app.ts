@@ -83,31 +83,69 @@
 // 	}
 // }
 
-function PrintDecoratorDataOnClass(value: Function, context: ClassDecoratorContext) {
-	console.log('PrintDecoratorDataOnClass...');
-	console.log('value:', value);
-	console.log('context:', context);
-	context.addInitializer(() => {
-		console.log(`Initialized class ${context.name}`);
-	});
-}
+// function PrintDecoratorDataOnClass(value: Function, context: ClassDecoratorContext) {
+// 	console.log('PrintDecoratorDataOnClass...');
+// 	console.log('value:', value);
+// 	console.log('context:', context);
+// 	context.addInitializer(() => {
+// 		console.log(`Initialized class ${context.name}`);
+// 	});
+// }
 
-function PrintDecoratorDataOnField(value: Function | undefined, context: DecoratorContext) {
-	console.log('PrintDecoratorDataOnField...');
-	console.log('value:', value);
-	console.log('context:', context);
-	context.addInitializer(() => {
-		console.log(`${context.name?.toString()}`);
-	});
-}
+// function PrintDecoratorDataOnField(value: Function | undefined, context: DecoratorContext) {
+// 	console.log('PrintDecoratorDataOnField...');
+// 	console.log('value:', value);
+// 	console.log('context:', context);
+// 	context.addInitializer(() => {
+// 		console.log(`${context.name?.toString()}`);
+// 	});
+// }
 
-@PrintDecoratorDataOnClass
-class Manager {
-	@PrintDecoratorDataOnField
-	task: string = 'Simple task';
-	project: string = 'Simple project';
+// function WithEmploymentDateOnProtoype(value: Function, context: ClassDecoratorContext) {
+// 	value.prototype.employmentDateOnPrototype = new Date().toISOString();
+// }
 
-	constructor() {
-		console.log('Initializing the Manager class');
+// function WithEmploymentDateOnObject<T extends new (...args: any[]) => {}>(baseClass: T, _: ClassDecoratorContext) {
+// 	return class extends baseClass {
+// 		employmentDate = new Date().toISOString();
+
+// 		constructor(...args: any[]){
+// 			super(...args);
+// 			console.log(`Adding employment date to ${baseClass.name}`)
+// 		}
+// 	}
+// }
+
+// @WithEmploymentDateOnObject
+// @WithEmploymentDateOnProtoype
+// @PrintDecoratorDataOnClass
+// class Manager {
+// 	@PrintDecoratorDataOnField
+// 	task: string = 'Simple task';
+// 	project: string = 'Simple project';
+
+// 	constructor() {
+// 		console.log('Initializing the Manager class');
+// 	}
+// }
+
+// const manager = new Manager() as any;
+// console.log('manager instance:', manager);
+// console.log('manager employmentDateOnPrototype:', manager.employmentDateOnPrototype);
+
+type Task = { name: string; level: 'low' | 'medium' | 'complicated' };
+
+function WithComplicatedTask<T, V extends Task[]>(target: undefined, context: ClassFieldDecoratorContext<T, V>) {
+	return function(args: V) {
+		args.push({ name: 'added task', level: 'complicated'});
+		return args;
 	}
 }
+
+class Manager {
+	@WithComplicatedTask
+	tasks: Task[] = [];
+}
+
+const manager = new Manager();
+console.log('manager instance:', manager);

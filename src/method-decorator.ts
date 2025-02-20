@@ -4,6 +4,8 @@ function withBudget(actionBudget: number) {
 		target: Function,
 		context: ClassMethodDecoratorContext<T>
 	) {
+		console.log('target:', target);
+		
 		return function (this: T, ...args: any[]) {
 			const instance = this;
 			if (instance.budget > actionBudget) {

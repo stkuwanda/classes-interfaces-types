@@ -8,6 +8,7 @@ function withBudget(actionBudget: number) {
 		
 		return function (this: T, ...args: any[]) {
 			const instance = this;
+			console.log(instance);
 			if (instance.budget > actionBudget) {
 				instance.budget = instance.budget - actionBudget;
 				target.apply(instance, args);
